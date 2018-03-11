@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {createStore, compose, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {logger} from 'redux-logger';
 import {Provider} from 'react-redux'
 import rootReducer from './Reducers/index';

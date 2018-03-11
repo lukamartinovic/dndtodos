@@ -2,21 +2,25 @@ import React, {Component} from 'react';
 
 class Todo extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {checked: false};
+    state = {checked: false};
 
-        this.handleCheck = this.handleCheck.bind(this);
-    }
-
-    handleCheck() {
-        this.setState({checked: !this.state.checked});
-    }
+    handleCheck = () => this.setState({checked: !this.state.checked});
 
     renderNote() {
-        return <div className="Todo"><input type="checkbox" onChange={this.handleCheck} checked={this.state.checked} /><span>{this.props.text}</span>
-            <button onClick={() => {this.props.removeTodo(this.props.id)}}>♲</button>
+
+        const {checked} = this.state;
+        const {text, id, removeTodo} = this.props;
+
+        return(
+        <div className="todo">
+            <label className={checked ? "checked": "unchecked"}>
+                <input className="checkbox" type="checkbox" onChange={this.handleCheck} checked={checked} />
+            </label>
+
+            <span>{text}</span>
+            <label className="removelabel"><button className="removebutton" onClick={removeTodo(id)}>remove</button></label>
         </div>
+        )
 
     }
 
