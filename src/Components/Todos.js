@@ -4,43 +4,35 @@ import Todo from './Todo'
 
 class Todos extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: ""};
+    state = {value: ""};
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    renderTodos = () => {
+        const {removeTodo, todos} = this.props;
+        return todos.map((note, i) => <Todo text={note.text} key={i} id={i} removeTodo={removeTodo}/> )
+    };
 
-    renderTodos() {
-        let todos = this.props.todos, i = 0;
-        return todos.map((note) => {
-            return (<Todo text={note.text} key={i} id={i++} removeTodo={this.props.removeTodo}/>)
-        })
-    }
-
-    handleSubmit(e) {
+    handleSubmit = (e) => {
+        const {value} = this.state;
         e.preventDefault();
 
-        if (this.state.value !== "")
-            this.props.addTodo(this.state.value);
+        if (value) this.props.addTodo(value);
         this.setState({value: ""});
-    }
+    };
 
-    handleChange(e) {
-        this.setState({value: e.target.value});
-    }
+    handleChange = ({target}) => {
+        this.setState({value: target.value});
+    };
 
     render() {
         return (
             <div>
-                <div><span>Task Manager</span></div>
-                <button onClick={(e) => {
-                    this.handleSubmit(e)
-                }}>+
-                </button>
-                <input value={this.state.value} onChange={this.handleChange} type="text"/>
-                {this.renderTodos()}
+                <div className="taskman"><span >Task Manager</span></div>
+
+                <div className="input"><button className="addButton" onClick={this.handleSubmit}>+</button>
+                    <input className="inputBox" placeholder = "Task" value={this.state.value} onChange={this.handleChange} type="text"/>
+                </div>
+
+                <div className="todolist">{this.renderTodos()}</div>
             </div>
         );
     }
@@ -50,15 +42,10 @@ const mapStateToProps = (state) => {
     return {todos: state.todos};
 };
 
-const mapDispatchToProps = dispatch => {
-    return ({
-        addTodo: (text) => {
-            dispatch({type: "ADD_TODO", text})
-        },
-        removeTodo: (index) => {
-            dispatch({type: "REMOVE_TODO", index})
-        }
-    })
-}
+const mapDispatchToProps = dispatch => ({
+        addTodo: (text) => dispatch({type: "ADD_TODO", text}),
+        removeTodo: (index) => () => dispatch({type: "REMOVE_TODO", index})
+    });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
