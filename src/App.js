@@ -5,6 +5,8 @@ import {logger} from 'redux-logger';
 import {Provider} from 'react-redux'
 import rootReducer from './Reducers/index';
 import Todos from './Components/Todos'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 const todos =
     [{text: "Wake up"},
@@ -24,4 +26,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);

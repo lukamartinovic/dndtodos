@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { DragSource } from 'react-dnd';
 
 class Todo extends Component {
 
@@ -9,10 +10,10 @@ class Todo extends Component {
     renderNote() {
 
         const {checked} = this.state;
-        const {text, id, removeTodo} = this.props;
+        const {text, id, removeTodo, connectDragSource, isDragging} = this.props;
 
-        return(
-        <div className="todo">
+        return connectDragSource(
+        <div className="todo" style={{opacity: isDragging? 0.2 : 1}}>
             <label className={checked ? "checked": "unchecked"}>
                 <input className="checkbox" type="checkbox" onChange={this.handleCheck} checked={checked} />
             </label>
@@ -29,4 +30,21 @@ class Todo extends Component {
     }
 }
 
-export default Todo;
+const ItemTypes = {
+    TODO: "todo"
+};
+
+const todoSource = {
+    beginDrag(props) {
+        return {todoId: props.id};
+    }
+};
+
+function collect(connect, monitor) {
+    return{
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }
+}
+
+export default DragSource(ItemTypes.TODO, todoSource, collect)(Todo);
