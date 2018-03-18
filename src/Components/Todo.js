@@ -3,19 +3,16 @@ import { DragSource } from 'react-dnd';
 
 class Todo extends Component {
 
-    state = {checked: false};
-
-    handleCheck = () => this.setState({checked: !this.state.checked});
+    handleCheck = () => console.log("poop");
 
     renderNote() {
 
-        const {checked} = this.state;
-        const {text, id, removeTodo, connectDragSource, isDragging} = this.props;
+        const {text, id, done, removeTodo, checkTodo, connectDragSource, isDragging} = this.props;
 
         return connectDragSource(
         <div className="todo" style={{opacity: isDragging? 0.2 : 1}}>
-            <label className={checked ? "checked": "unchecked"}>
-                <input className="checkbox" type="checkbox" onChange={this.handleCheck} checked={checked} />
+            <label className={done ? "checked": "unchecked"}>
+                <input className="checkbox" type="checkbox" onClick={checkTodo(id)}/>
             </label>
 
             <span>{text}</span>

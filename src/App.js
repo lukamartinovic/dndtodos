@@ -9,9 +9,9 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 const todos =
-    [{text: "Wake up"},
-    {text: "Make coffee"},
-    {text: "Drink coffee"}];
+    [{text: "Wake up", id: 0, done: true},
+    {text: "Make coffee", id: 1, done: false},
+    {text: "Drink coffee", id: 2, done: false}];
 
 const initialState = {todos};
 const store = createStore(rootReducer, initialState, applyMiddleware(logger));
