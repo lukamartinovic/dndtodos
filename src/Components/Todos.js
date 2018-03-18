@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Todo from './Todo'
 import TodoFrame from './TodoFrame';
 class Todos extends Component {
 
@@ -8,7 +7,7 @@ class Todos extends Component {
 
     renderTodos = () => {
         const {removeTodo, checkTodo, swapTodos, todos} = this.props;
-        return todos.map((note, i) => <TodoFrame swapTodos={swapTodos} checkTodo={checkTodo} text={note.text} key={i} id={i} removeTodo={removeTodo} done={note.done}/>)
+        return todos.map((note, i) => <TodoFrame swapTodos={swapTodos} checkTodo={checkTodo} text={note.text} key={i} id={note.id} removeTodo={removeTodo} done={note.done}/>)
     };
 
     handleSubmit = (e) => {
@@ -45,7 +44,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
         addTodo: (text) => dispatch({type: "ADD_TODO", text}),
         removeTodo: (id) => () => dispatch({type: "REMOVE_TODO", id}),
-        swapTodos: (idFirst, idSecond) => () => dispatch({type: "SWAP_TODOS", idFirst, idSecond}),
+        swapTodos: (idFirst, idSecond) => dispatch({type: "SWAP_TODOS", idFirst, idSecond}),
         checkTodo: (id) => () => dispatch({type: "CHECK", id})
     });
 

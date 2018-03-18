@@ -3,7 +3,7 @@ const todoReducer = (state = [], action) => {
     const time = new Date();
     switch (action.type){
         case "ADD_TODO":
-            newState.push({text: action.text, id:time.getTime()});
+            newState.push({text: action.text, id:time.getTime(), done:false});
             return newState;
         case "REMOVE_TODO":
             const removeIndex = newState.findIndex(todo => todo.id === action.id);

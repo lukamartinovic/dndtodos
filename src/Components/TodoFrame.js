@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import Todo from './Todo';
 import { DropTarget } from 'react-dnd';
 
-//TODO: OVDE JE PROBLEM
 
 const frameTarget = {
-    drop(props, monitor, component) {
-        console.log(monitor.getItem())
-        console.log(props)
-        console.log(component)
+    drop(props, monitor) {
+        console.log(props);
+
+        const id1 = monitor.getItem().todoId;
+        const id2 = props.id;
+        props.swapTodos(id1, id2);
+        console.log("poop")
+
     }
 };
 
