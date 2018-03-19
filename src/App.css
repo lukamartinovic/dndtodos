@@ -55,12 +55,6 @@ input{
     width: calc(100% - 30px)
 }
 
-#addbutton{
-    font-weight: bold;
-    color: gray;
-    margin: 0 5px;
-}
-
 .checkbox{
     opacity: 0;
 }

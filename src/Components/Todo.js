@@ -3,8 +3,6 @@ import { DragSource } from 'react-dnd';
 
 class Todo extends Component {
 
-    handleCheck = () => console.log("poop");
-
     renderNote() {
 
         const {text, id, done, removeTodo, checkTodo, connectDragSource, isDragging} = this.props;
